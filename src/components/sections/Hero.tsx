@@ -125,22 +125,22 @@ export default function Hero({ onServicesClick }: Props) {
         </motion.div>
 
         {/* ── DESKTOP: 3 columnas ─────────────────────── */}
-        <div className="hidden md:grid relative z-10 flex-1 grid-cols-[280px_1fr_280px] items-center px-10 pb-10 gap-6">
+        <div className="hidden md:grid relative z-10 flex-1 grid-cols-[240px_1fr_240px] items-center px-10 pb-10 gap-6">
 
-          {/* Card izquierda */}
+          {/* Botón izquierda */}
           <motion.div
             initial={{ opacity: 0, x: -60 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7, delay: 0.45 }}
             className="flex justify-end"
           >
-            <div className="w-full max-w-[240px]">
-              <GlassCard
-                icon={<CalendarIcon />}
-                title="Agendar llamada"
-                desc="30 min. Te mostramos qué automatizaríamos en tu negocio."
-                cta="Agenda aquí"
-                onClick={() => setModalOpen(true)}
-              />
-            </div>
+            <motion.button
+              onClick={() => setModalOpen(true)}
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+              className="flex items-center justify-center gap-2.5 px-7 py-4 bg-accent text-hero-bg font-bold rounded-2xl text-sm shadow-[0_0_25px_rgba(56,189,248,0.35)] hover:shadow-[0_0_45px_rgba(56,189,248,0.55)] transition-all duration-300"
+            >
+              <CalendarIcon />
+              Agendar llamada
+            </motion.button>
           </motion.div>
 
           {/* Robot */}
@@ -151,20 +151,20 @@ export default function Hero({ onServicesClick }: Props) {
             </div>
           </div>
 
-          {/* Card derecha */}
+          {/* Botón derecha */}
           <motion.div
             initial={{ opacity: 0, x: 60 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7, delay: 0.45 }}
             className="flex justify-start"
           >
-            <div className="w-full max-w-[240px]">
-              <GlassCard
-                icon={<ArrowIcon />}
-                title="Ver servicios"
-                desc="Chatbots, automatizaciones, CRMs y agentes IA a medida."
-                cta="Explorar"
-                onClick={onServicesClick}
-              />
-            </div>
+            <motion.button
+              onClick={onServicesClick}
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+              className="flex items-center justify-center gap-2.5 px-7 py-4 border-2 border-accent/60 text-accent font-bold rounded-2xl text-sm hover:bg-accent/10 hover:border-accent transition-all duration-300"
+            >
+              Ver servicios
+              <ArrowIcon />
+            </motion.button>
           </motion.div>
         </div>
 
