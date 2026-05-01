@@ -49,12 +49,19 @@ export default function BookingModal({ open, onClose }: Props) {
 
   async function handleSubmit() {
     setLoading(true);
-    // TODO: enviar a Supabase cuando Joaquin entregue las credenciales
-    // await saveBooking(form);
-    console.log('Booking:', form);
-    await new Promise(r => setTimeout(r, 1000)); // simular delay
-    setLoading(false);
-    setStep(4);
+    try {
+      const res = await fetch('/api/booking', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error('Error al guardar');
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+      setStep(4);
+    }
   }
 
   const canNext: Record<number, boolean> = {

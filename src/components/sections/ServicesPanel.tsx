@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import BookingModal from '@/components/BookingModal';
 
@@ -8,8 +8,17 @@ interface Props {
   onBack: () => void;
 }
 
-// URL demo ElevenLabs — reemplazar cuando Joaquin lo pase
-const DEMO_URL = '#';
+const ELEVENLABS_AGENT_ID = 'agent_5901kgbn44kve6ha1pzc47gsd5tv';
+
+function openElevenLabsWidget() {
+  const widget = document.querySelector('elevenlabs-convai') as HTMLElement & { open?: () => void };
+  if (widget?.open) {
+    widget.open();
+  } else {
+    const btn = widget?.shadowRoot?.querySelector('button') as HTMLButtonElement | null;
+    btn?.click();
+  }
+}
 
 const services = [
   { icon: '🤖', title: 'Chatbots IA',         description: 'Agentes que atienden, califican y agendan 24/7 sin intervención humana.',        tags: ['WhatsApp', 'Web', 'Instagram'] },
@@ -88,14 +97,12 @@ export default function ServicesPanel({ onBack }: Props) {
           </div>
 
           <div className="flex items-center gap-3">
-            <a
-              href={DEMO_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={openElevenLabsWidget}
               className="hidden md:flex items-center gap-2 px-4 py-2 border border-white/15 text-white/70 hover:text-white hover:border-white/30 rounded-xl text-sm font-medium transition-all"
             >
               <span>🎙️</span> Demo en vivo
-            </a>
+            </button>
             <motion.button
               onClick={() => setModalOpen(true)}
               whileHover={{ scale: 1.03 }}
@@ -129,14 +136,12 @@ export default function ServicesPanel({ onBack }: Props) {
 
             {/* Demo mobile */}
             <div className="flex justify-center mb-10 md:hidden">
-              <a
-                href={DEMO_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={openElevenLabsWidget}
                 className="flex items-center gap-2 px-6 py-3 border border-white/15 text-white/70 rounded-xl text-sm font-medium"
               >
                 <span>🎙️</span> Probar demo
-              </a>
+              </button>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl mx-auto">
@@ -293,6 +298,10 @@ export default function ServicesPanel({ onBack }: Props) {
       </motion.div>
 
       <BookingModal open={modalOpen} onClose={() => setModalOpen(false)} />
+
+      {/* ElevenLabs conversational AI widget — flota en esquina inferior derecha */}
+      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+      {React.createElement('elevenlabs-convai', { 'agent-id': ELEVENLABS_AGENT_ID } as any)}
     </>
   );
 }
