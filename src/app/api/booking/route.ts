@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({
         fields: {
           Nombre:      name,
-          'Teléfono':  phone,
+          Telefono:    phone,
           Nicho:       niche,
           Presupuesto: budget,
           Fecha:       new Date().toISOString(),
